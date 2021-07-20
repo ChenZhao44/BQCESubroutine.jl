@@ -1,37 +1,28 @@
 module BQCESubroutine
 
-export broutine!, @broutine
+export broutine!, @broutine, log2dim, log2i
 
-using MLStyle
-using ExprTools
 using YaoLocations: YaoLocations, plain, Locations, CtrlLocations, AbstractLocations, merge_locations
 using LinearAlgebra
 using LoopVectorization
 using StrideArrays
+using StrideArrays: StrideArray
+using CheapThreads: @batch
+using ArrayInterface
 
-"""
-    broutine!(st, op, locs[, ctrl, args...])
+include("utils2.jl")
+include("schedule.jl")
+include("subspace/bit.jl")
+include("mul/mul.jl")
+include("routine/bit.jl")
+# include("utils.jl")
+# include("threading.jl")
 
-Qubit-based quantum circuit subroutine.
+# using .Utilities
 
-# Args
-
-- `st`: the raw storage type.
-- `op`: the operator
-- `locs`: a `Locations`, location of the operator
-- `ctrl`: optional. A `CtrlLocations`, location of the control qubits.
-- `args`: optional. parameters of the operator.
-"""
-function broutine! end
-
-include("utils.jl")
-include("threading.jl")
-
-using .Utilities
-
-include("codegen/utils.jl")
-include("codegen/broutine.jl")
-include("mul.jl")
-include("statevector.jl")
+# include("codegen/utils.jl")
+# include("codegen/broutine.jl")
+# include("mul.jl")
+# include("statevector.jl")
 
 end
